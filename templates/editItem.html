@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<br>
+<div class="indent">
+   <h2> Edit Catalog Item </h2>
+   <form action="#" method = 'post'>
+      <h3>Name:</h3>
+      <input type ='text' size='30' name='name' placeholder = '{{item.name }}'>
+      <h3>Description:</h3>
+      <input type ='text' size='30' name='description' placeholder = '{{item.description}}'>
+      <h3>Price:</h3>
+      <input type ='text' size='30' name='price' placeholder = '{{item.price}}'>
+      <h3>Category id:</h3>
+      <input type ='text' size='30' name='category_id' placeholder = '{{item.category_id}}'>
+      <h3>User id:</h3>
+      <input type ='text' size='30' name='user_id' placeholder = '{{item.user_id}}'>
+      </br>
+      <input type='submit' value='Edit'>
+      <a href =  '{{url_for('showCatalog')}}'>
+      <h4>
+      Cancel
+      <h4>
+      </a>
+</div>
+</form>
+{% endblock %}

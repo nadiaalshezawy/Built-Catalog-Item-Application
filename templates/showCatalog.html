@@ -1,0 +1,25 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<br>
+<div class="container">
+   <h2>Botique Categories</h2>
+   {% include "flashMessage.html" %}
+   <br>
+   {% for category in categories %}
+   <a href = "{{url_for('showAllItems', category_name = category.name)}}">
+      <h2>{{category.name}}</h2>
+   </a>
+   <a href = "{{url_for('editCategory',category_name = category.name)}}">
+      <h4>Edit Category</h4>
+   </a>
+   <a href = "{{url_for('deleteCategory',category_name = category.name)}}">
+      <h4>Delete Category</h4>
+   </a>
+   <br>
+   {% endfor %}
+   <a href="{{url_for('newCategory')}}" >
+      <h3> Create a New Category </h3>
+   </a>
+</div>
+{% endblock %}

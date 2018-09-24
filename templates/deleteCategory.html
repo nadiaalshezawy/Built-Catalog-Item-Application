@@ -1,0 +1,14 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<br>
+<div class="indent">
+   <h2> Are you sure you want to delete {{category.name}}? </h2>
+   <form action="{{ url_for('deleteCategory',category_name = category.name)}}" method = 'post'>
+      <input type='submit', value = 'Delete'>
+   </form>
+   <a href = '{{url_for('showCatalog')}}'>
+   <h4> Cancel </h4>
+   </a>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+<header>
+   <div class="logo">
+      <img   class="logopic" alt="logo image">
+   </div>
+   <div class="title">
+      <h1  >N3 Boutique</h1>
+   </div>
+</header>
+<br>
+<div  class="categories">
+   {%if 'username' not in session %}
+   <button class="button"><a href="{{url_for('showLogin')}}" class="log-icon">Login </a></button>
+   {% else %}
+   <button class="button" ><a href="{{url_for('disconnect')}}" class="log-icon" >Logout </a></button>
+   {% endif %}
+   <a href="{{url_for('showCatalog')}}">
+      <h4>Show All Categories</h4>
+   </a>
+</div>

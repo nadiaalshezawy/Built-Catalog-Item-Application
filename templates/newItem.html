@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<br>
+<div class="indent">
+   <h2>New  Item</h2>
+   <form action="{{ url_for('newItem',category_name = category_name)}}" method = 'post'>
+      <h3>Name:</h3>
+      <input type ='text' size='30' name='name'>
+      <h3>Description:</h3>
+      <input type ='text' size='30' name='description'>
+      <h3>Price:</h3>
+      <input type ='text' size='30' name='price'>
+      </br>
+      </br>
+      <input type='submit' value='Create'>
+      <a href =  '{{url_for('showCatalog')}}'>
+      <h4> Cancel</h4>
+      </a>
+   </form>
+</div>
+{% endblock %}

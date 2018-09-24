@@ -1,0 +1,21 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<br>
+<div class="container">
+   <h2>{{category.name}}</h2>
+   {% include "flashMessage.html" %}
+   {% if not items %}
+   <h3>Their is no item in this category</h3>
+   {% endif %}
+   {% for item in items %}
+   <a href = "{{ url_for('readItem',category_name=category.name,category_item=item.name)}}">
+      <h3> {{item.name}}</h3>
+   </a>
+   {% endfor %}
+   <br>
+   <a href="{{ url_for('newItem', category_name = category.name)}}" >
+      <h3> Create a New Item </h3>
+   </a>
+</div>
+{% endblock %}
