@@ -1,7 +1,7 @@
 # Buid an Item Catalog Application Project
 The **Catalog project** develop an application that provides a list of items within a variety of categories as well as provide a user registration and authentication system. Registered users will have the ability to post, edit and delete their own items.
 
-##Skills applied
+## Skills applied
  -Python
 
  -Flask
@@ -64,6 +64,8 @@ on the  http://localhost:8000 .The homepage displays all current categories Then
    by typing ```python project.py```
 
 8.Access and test your application by visiting http://localhost:8000 locally
+
+9.When creating new or editting Category/item the name should be unique.
 
 ## JSON API ENDPOINT
  The user can have the json api by these url

@@ -5,6 +5,7 @@ from flask import Flask, render_template, request
 from flask import redirect, jsonify, url_for, flash
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import exists
 from database_setup import CategoryItem, Base, Category, User
 from flask import session as login_session
 import random
@@ -321,6 +322,12 @@ def newCategory():
     if 'username' not in login_session:
         return redirect('/login')
     if request.method == 'POST':
+        categories = session.query(Category).all()
+        # check if the category exist
+        for cat in categories:
+            if cat.name == request.form['name']:
+                flash("The name is existed. choose another name")
+                return render_template('newCategory.html')
         newCategory = Category(name=request.form['name'],
                                user_id=login_session['user_id'])
         session.add(newCategory)
@@ -344,12 +351,18 @@ def editCategory(category_name):
                  'You are not authorized to edit this category.');
                   }</script><body onload='myFunction()'>"""
     if request.method == 'POST':
-        if request.form['name']:
-            editedCategory.name = request.form['name']
-            session.add(editedCategory)
-            session.commit()
-            flash("Category was editted!")
-            return redirect(url_for('showCatalog'))
+        categories = session.query(Category).all()
+        # check if the category editting name exist
+        for cat in categories:
+            if cat.name == request.form['name']:
+                flash("The name is existed. choose another name")
+                return render_template(
+                     'editCategory.html', category=editedCategory)
+        editedCategory.name = request.form['name']
+        session.add(editedCategory)
+        session.commit()
+        flash("Category was editted!")
+        return redirect(url_for('showCatalog'))
     else:
         return render_template(
             'editCategory.html', category=editedCategory)
@@ -405,6 +418,13 @@ def newItem(category_name):
     categoryToAdd = session.query(
         Category).filter_by(name=category_name).one()
     if request.method == 'POST':
+        items = session.query(
+            CategoryItem).filter_by(category_id=categoryToAdd.id).all()
+        # check if the category name  exist
+        for item in items:
+            if item.name == request.form['name']:
+                flash("The name is existed. choose another name")
+                return render_template('newItem.html')
         newItem = CategoryItem(
                             name=request.form['name'], description=request.form
                             ['description'], price=request.form['price'],
@@ -449,6 +469,15 @@ def editItem(category_name, category_item):
                'You are not authorized to edit this item.');}
                </script><body onload='myFunction()'>"""
     if request.method == 'POST':
+        items = session.query(
+            CategoryItem).filter_by(category_id=editedItem.category_id).all()
+        # check if the editted new name exist
+        for item in items:
+            if item.name == request.form['name']:
+                flash("The name is existed. choose another name")
+                return render_template(
+                        'editItem.html', category_id=editedItem.category_id,
+                        item_id=editedItem.id, item=editedItem)
         if request.form['name']:
             editedItem.name = request.form['name']
         if request.form['description']:
